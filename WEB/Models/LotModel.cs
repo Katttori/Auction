@@ -11,5 +11,6 @@ namespace WEB.Models
         public ProductModel Product { get; set; }
         public string BiddingEnd { get; set; }
         public decimal ActualPrice { get; set; }
+        public UserModel Winner { get; set; }
     }
 }

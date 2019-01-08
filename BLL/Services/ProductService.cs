@@ -69,7 +69,8 @@ namespace BLL.Services
 
         public IEnumerable<ProductDTO> GetAllProducts()
         {
-            return Mapper.Map<IEnumerable<Product>, List<ProductDTO>>(database.Products.GetAll());
+            var products = database.Products.GetAll().ToList();
+            return Mapper.Map<IEnumerable<Product>, List<ProductDTO>>(products);
         }
 
         public ProductDTO GetProduct(int id)

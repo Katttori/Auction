@@ -12,7 +12,7 @@ namespace WEB.Models
         [Required]
         public string Name { get; set; }
         public string Description { get; set; }
-        public byte[] Image { get; set; }
+        public string Image { get; set; }
         [Required]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }

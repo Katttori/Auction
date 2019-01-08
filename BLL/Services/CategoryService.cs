@@ -50,7 +50,8 @@ namespace BLL.Services
 
         public IEnumerable<CategoryDTO> GetAllCategories()
         {
-            return Mapper.Map<IEnumerable<Category>, List<CategoryDTO>>(database.Categories.GetAll());
+            var categories = database.Categories.GetAll().ToList();
+            return Mapper.Map<IEnumerable<Category>, List<CategoryDTO>>(categories);
         }
 
         public CategoryDTO GetCategory(int id)

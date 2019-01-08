@@ -36,7 +36,7 @@ namespace WEB.Controllers
 
         [HttpGet]
         [Route("get/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public IHttpActionResult Get(int id)
         {
             try

@@ -29,8 +29,9 @@ namespace BLL.Services
                 throw new NotFoundException();
             if (!product.IsConfirmed)
                 throw new InvalidOperationException("Not confirmed");
-            var IsFirst = database.Lots.Find(x => x.Product == product) == null ? false : true;
-            if (!IsFirst)
+            var alreadyLot = database.Lots.Find(x => x.ProductID == product.Id).FirstOrDefault();// == null ? false : true;
+           
+            if (alreadyLot != null)
                 throw new InvalidOperationException("Product already in lot");
             if (product.IsSold)
                 throw new InvalidOperationException("Already sold");
@@ -87,7 +88,8 @@ namespace BLL.Services
 
         public IEnumerable<LotDTO> GetAllLots()
         {
-            return Mapper.Map<IEnumerable<Lot>, List<LotDTO>>(database.Lots.GetAll());
+            var lots = database.Lots.GetAll().ToList();
+            return Mapper.Map<IEnumerable<Lot>, List<LotDTO>>(lots);
         }
 
         public LotDTO GetLot(int id)
@@ -103,7 +105,8 @@ namespace BLL.Services
             var category = database.Categories.Get(categoryId);
             if (category == null)
                 throw new NotFoundException();
-            return Mapper.Map<IEnumerable<Lot>, List<LotDTO>>(database.Lots.Find(lot => lot.Product.CategoryID == categoryId && !lot.Product.IsSold));
+            var lots = database.Lots.Find(lot => lot.Product.CategoryID == categoryId && !lot.Product.IsSold).ToList();
+            return Mapper.Map<IEnumerable<Lot>, List<LotDTO>>(lots);
         }
 
         public IEnumerable<LotDTO> GetWonLots(string userId)
@@ -111,7 +114,8 @@ namespace BLL.Services
             var user = database.Users.Get(userId);
             if (user == null)
                 throw new NotFoundException();
-            return Mapper.Map<IEnumerable<Lot>, List<LotDTO>>(user.WonLots);
+            var wonLots = user.WonLots.Where(x => x.BiddingEnd < DateTime.Now); 
+            return Mapper.Map<IEnumerable<Lot>, List<LotDTO>>(wonLots);
         }
 
         public void MakeBet(string userId, int lotId, decimal bet)
