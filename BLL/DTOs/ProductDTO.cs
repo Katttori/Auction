@@ -24,6 +24,6 @@ namespace BLL.DTOs
         {
             IsConfirmed = false;
             IsSold = false;
-        c}
+        }
     }
 }
