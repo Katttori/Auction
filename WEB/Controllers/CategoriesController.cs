@@ -47,7 +47,7 @@ namespace WEB.Controllers
         
         [HttpPost]
         [Route("create")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator")]
         public IHttpActionResult CreateCategory([FromBody]CategoryModel category)
         {
             if (!ModelState.IsValid)
@@ -66,7 +66,7 @@ namespace WEB.Controllers
 
         [HttpPut]
         [Route("update")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator")]
         public IHttpActionResult UpdateCategory([FromBody] CategoryModel category)
         {
             if (!ModelState.IsValid)
@@ -89,7 +89,7 @@ namespace WEB.Controllers
 
         [HttpDelete]
         [Route("delete/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator")]
         public IHttpActionResult DeleteCategory(int id)
         {
             try

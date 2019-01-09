@@ -28,7 +28,7 @@ namespace WEB.Controllers
         }
         [HttpGet]
         [Route("get")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator")]
         public IHttpActionResult Get()
         {
             return Ok(Mapper.Map<IEnumerable<ProductDTO>, List<ProductModel>>(productService.GetAllProducts()));
@@ -65,6 +65,17 @@ namespace WEB.Controllers
             {
                 return NotFound();
             }
+        }
+
+        [HttpGet]
+        [Route("get/confirmation")]
+        [Authorize(Roles = "Admin, Moderator")]
+        public IHttpActionResult GetToConfirm()
+        {
+          
+                var products = productService.GetToConfirm();
+                return Ok(Mapper.Map<IEnumerable<ProductDTO>, List<ProductModel>>(products));
+            
         }
 
         [HttpPost]
@@ -149,7 +160,7 @@ namespace WEB.Controllers
         }
         [HttpDelete]
         [Route("delete/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize]
         public IHttpActionResult RemoveProduct(int id)
         {
             try

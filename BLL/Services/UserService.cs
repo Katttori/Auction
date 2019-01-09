@@ -150,15 +150,28 @@ namespace BLL.Services
             return newUser;
         }
 
-        private string GetRoleForUser(string id)
+        public string GetRoleForUser(string id)
         {
             var user = databaseIdentity.UserManager.FindById(id);
-            var roleId = user.Roles.Where(x => x.UserId == user.Id).Single().RoleId;
+            var roleId = user.Roles.Where(x => x.UserId == user.Id).SingleOrDefault().RoleId;
 
             
             var role = databaseIdentity.RoleManager.FindById(roleId).Name;
 
             return role;
+        }
+
+        public void ChangeRole(string userId, string newRole)
+        {
+            var oldRoleId = databaseIdentity.UserManager.FindById(userId).Roles.SingleOrDefault().RoleId;
+            var oldRoleName = databaseIdentity.RoleManager.FindById(oldRoleId).Name;
+            if (oldRoleName != newRole)
+            {
+                databaseIdentity.UserManager.RemoveFromRoles(userId, oldRoleName);
+                databaseIdentity.UserManager.AddToRole(userId, newRole);
+            }
+            databaseIdentity.SaveAsync();
+            
         }
     }
 }

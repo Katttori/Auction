@@ -74,6 +74,11 @@ namespace BLL.Services
             {
                 lot.Winner.WonLots.Add(lot);
                 lot.Product.IsSold = true;
+                if (lot.BiddingEnd > DateTime.Now)
+                {
+                    lot.BiddingEnd = DateTime.Now;
+                    database.Lots.Update(lot);
+                }
             }
             else
                 RemoveLot(LotId);

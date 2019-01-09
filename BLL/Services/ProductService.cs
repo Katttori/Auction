@@ -91,6 +91,12 @@ namespace BLL.Services
             return Mapper.Map<IEnumerable<Product>, List<ProductDTO>>(products);
         }
 
+        public IEnumerable<ProductDTO> GetToConfirm()
+        {
+            var products = database.Products.Find(x => !x.IsConfirmed).ToList();
+            return Mapper.Map<IEnumerable<Product>, List<ProductDTO>>(products);
+        }
+
         public void RemoveProduct(int id)
         {
             var product = database.Products.Get(id);

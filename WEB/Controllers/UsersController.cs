@@ -48,7 +48,45 @@ namespace WEB.Controllers
                 return NotFound();
             }
         }
-        
+
+        [HttpGet]
+        [Authorize]
+        [Route("role")]
+        public IHttpActionResult GetRole()
+        {
+            var id = userService.GetUserByName(User.Identity.Name).Id;
+            var role = userService.GetRoleForUser(id);
+            return Ok(role);
+        }
+
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        [Route("role/{id}")]
+        public IHttpActionResult GetRole(string id)
+        {
+            var role = userService.GetRoleForUser(id);
+            return Ok(role);
+        }
+
+        [HttpPut]
+        [Authorize(Roles = "Admin")]
+        [Route("user/{id}/{role}")]
+        public IHttpActionResult ChangeRole(string id, string role)
+        {
+            try
+            {
+                //role = role.
+                userService.ChangeRole(id, role);
+                return Ok("Success");
+            }
+            catch (Exception)
+            {
+                return BadRequest("Wrong id or category");
+            }
+            
+        }
+
         [HttpPut]
         [Authorize(Roles = "Admin")]
         [Route("update")]

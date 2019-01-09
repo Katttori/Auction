@@ -131,7 +131,7 @@ namespace WEB.Controllers
 
         [HttpPut]
         [Route("end/{id}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin, Moderator")]
         public IHttpActionResult EndBidding(int id)
         {
             try
