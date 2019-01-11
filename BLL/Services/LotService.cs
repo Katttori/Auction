@@ -29,7 +29,7 @@ namespace BLL.Services
                 throw new NotFoundException();
             if (!product.IsConfirmed)
                 throw new InvalidOperationException("Not confirmed");
-            var alreadyLot = database.Lots.Find(x => x.ProductID == product.Id).FirstOrDefault();// == null ? false : true;
+            var alreadyLot = database.Lots.Find(x => x.ProductID == product.Id).FirstOrDefault();
            
             if (alreadyLot != null)
                 throw new InvalidOperationException("Product already in lot");
