@@ -19,6 +19,7 @@ namespace BLL.Interfaces
         void EndBidding(int id);
         IEnumerable<LotDTO> GetLotsWithCategory(int categoryId);
         IEnumerable<LotDTO> GetWonLots(string userId);
+        Task EndBiddingWhenTimeExpired(int id);
         void Dispose();
     }
 }

@@ -30,7 +30,6 @@ namespace BLL.Services
             if (!product.IsConfirmed)
                 throw new InvalidOperationException("Not confirmed");
             var alreadyLot = database.Lots.Find(x => x.ProductID == product.Id).FirstOrDefault();
-           
             if (alreadyLot != null)
                 throw new InvalidOperationException("Product already in lot");
             if (product.IsSold)
@@ -143,18 +142,17 @@ namespace BLL.Services
                 throw new NotFoundException();
             database.Lots.Delete(id);
         }
-        
-        //async Task EndBiddingAutomaticly(DateTime endDateTime, int id)
-        //{
-        //    var now = DateTime.Now;
-        //    if (endDateTime > now)
-        //        await Task.Delay(endDateTime - now);
-        //    try
-        //    {
-        //        EndBidding(id);
-        //    }
-        //    catch (Exception)
-        //    { }
-        //}
+
+        public async Task EndBiddingWhenTimeExpired( int id)
+        {
+            var lot = GetLot(id);
+            if (lot == null)
+                throw new NotFoundException();
+            var when = lot.BiddingEnd;
+            DateTime now = DateTime.Now;
+            if (when > now)
+                await Task.Delay(when - now);
+            EndBidding(id);
+        }
     }
 }

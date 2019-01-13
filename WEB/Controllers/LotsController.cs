@@ -9,6 +9,7 @@ using WEB.Models;
 using AutoMapper;
 using BLL.DTOs;
 using BLL.Exceptions;
+using System.Threading.Tasks;
 
 namespace WEB.Controllers
 {
@@ -146,6 +147,22 @@ namespace WEB.Controllers
             catch (InvalidOperationException e)
             {
                 return BadRequest(e.Message);
+            }
+        }
+
+        [HttpPut]
+        [Route("timer/start/{id}")]
+        [Authorize(Roles = "Admin, Moderator")]
+        public async Task<IHttpActionResult> EndBiddingWhenExpired(int id)
+        {
+            try
+            {
+                await lotService.EndBiddingWhenTimeExpired(id);
+                return Ok("Bidding end");
+            }
+            catch (NotFoundException)
+            {
+                return NotFound();
             }
         }
 
