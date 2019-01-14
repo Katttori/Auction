@@ -19,14 +19,17 @@ namespace BLL.Services
         {
             database = uow;
         }
-        public void ChangeProductCategory(int productId, int categoryId)
+        public void ChangeProductCategory(int productId, string categoryName)
         {
             var product = database.Products.Get(productId);
-            var category = database.Categories.Get(categoryId);
+            var category = database.Categories.Find(x => x.Name == categoryName).FirstOrDefault();
             if (product == null || category == null)
                 throw new NotFoundException();
-            product.Category = category;
-            database.Products.Update(product);
+            if (product.CategoryID != category.Id)
+            {
+                product.Category = category;
+                database.Products.Update(product);
+            }
         }
 
         public void CreateProduct(ProductDTO newProduct)

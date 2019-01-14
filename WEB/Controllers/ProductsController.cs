@@ -42,6 +42,7 @@ namespace WEB.Controllers
             try
             {
                 var product = productService.GetProduct(id);
+                var model = Mapper.Map<ProductDTO, ProductModel>(product);
                 return Ok(Mapper.Map<ProductDTO, ProductModel>(product));
             }
             catch (NotFoundException)
@@ -128,13 +129,13 @@ namespace WEB.Controllers
         }
 
         [HttpPut]
-        [Route("update/{productId}/{categoryId}")]
+        [Route("update/{productId}/{categoryТфьу}")]
         [Authorize]
-        public IHttpActionResult ChangeProductCategory(int productId, int categoryId)
+        public IHttpActionResult ChangeProductCategory(int productId, string categoryName)
         {
             try
             {
-                productService.ChangeProductCategory(productId, categoryId);
+                productService.ChangeProductCategory(productId, categoryName);
                 return Ok($"Product category was successfuly update");
             }
             catch (NotFoundException)

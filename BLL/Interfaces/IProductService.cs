@@ -15,7 +15,7 @@ namespace BLL.Interfaces
         void RemoveProduct(int id);
         IEnumerable<ProductDTO> GetAllProducts();
         ProductDTO GetProduct(int id);
-        void ChangeProductCategory(int productId, int categoryId);
+        void ChangeProductCategory(int productId, string categoryName);
         void ConfirmProduct(int id);
         IEnumerable<ProductDTO> GetToConfirm();
 

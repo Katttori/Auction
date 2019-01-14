@@ -111,25 +111,6 @@ namespace BLL.Services
             return CreateUserDTO(appUser);
         }
 
-        
-        public async Task EditRole(string userId, string newRoleName)
-        {
-            var user = await databaseIdentity.UserManager.FindByIdAsync(userId);
-
-            if (user == null)
-                throw new NotFoundException();
-
-            var oldRole = GetRoleForUser(userId);
-
-            if (oldRole != newRoleName)
-            {
-                await databaseIdentity.UserManager.RemoveFromRoleAsync(userId, oldRole);
-                await databaseIdentity.UserManager.AddToRoleAsync(userId, newRoleName);
-
-                await databaseIdentity.UserManager.UpdateAsync(user);
-            }
-        }
-
         public IEnumerable<string> GetRoles()
         {
             return databaseIdentity.RoleManager.Roles.Select(x => x.Name);
