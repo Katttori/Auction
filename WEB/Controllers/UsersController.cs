@@ -36,12 +36,12 @@ namespace WEB.Controllers
         [Route("info")]
         public IHttpActionResult GetUserInfo()
         {
-            var id = userService.GetUserByName(User.Identity.Name).Id;
-
+            
             try
             {
-                var user = Mapper.Map<UserDTO, UserModel>(userService.GetSingle(id));
-                return Ok(user);
+                var user = userService.GetUserByName(User.Identity.Name);
+                var userModel = Mapper.Map<UserDTO, UserModel>(user);
+                return Ok(userModel);
             }
             catch (NotFoundException)
             {

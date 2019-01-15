@@ -15,7 +15,7 @@ namespace BLL.Interfaces
         
         void EditUser(UserDTO newUser);
         IEnumerable<UserDTO> GetAllUsers();
-        UserDTO GetSingle(string id);
+
 
 
         Task<Tuple<ClaimsIdentity, ClaimsIdentity>> FindAsync(string username, string password);

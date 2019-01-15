@@ -81,13 +81,6 @@ namespace BLL.Services
             return list;
         }
 
-        public UserDTO GetSingle(string id)
-        {
-            var user = database.Users.Get(id);
-            if (user == null)
-                throw new NotFoundException();
-            return Mapper.Map<User, UserDTO>(user);
-        }
 
         public async Task<Tuple<ClaimsIdentity, ClaimsIdentity>> FindAsync(string username, string password)
         {
