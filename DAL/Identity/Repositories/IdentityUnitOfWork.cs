@@ -15,14 +15,12 @@ namespace DAL.Identity.Repositories
 
         public ApplicationUserManager UserManager { get; }
         public ApplicationRoleManager RoleManager { get; }
-        public IClientManager ClientManager { get; }
 
         public IdentityUnitOfWork(string connectionString)
         {
             db = new AuctionContext(connectionString);
             UserManager = new ApplicationUserManager(new UserStore<ApplicationUser>(db));
             RoleManager = new ApplicationRoleManager(new RoleStore<ApplicationRole>(db));
-            ClientManager = new ClientManager(db);
         }
 
         public async Task SaveAsync()
@@ -45,7 +43,6 @@ namespace DAL.Identity.Repositories
                 {
                     UserManager.Dispose();
                     RoleManager.Dispose();
-                    ClientManager.Dispose();
                 }
                 this.disposed = true;
             }

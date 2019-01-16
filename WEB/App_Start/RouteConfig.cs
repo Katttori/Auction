@@ -16,7 +16,7 @@ namespace WEB
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "category", action = "get", id = UrlParameter.Optional }
+                defaults: new { controller = "categories", action = "get", id = UrlParameter.Optional }
             );
         }
     }

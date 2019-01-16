@@ -42,7 +42,7 @@ namespace BLL.Services
 
                 await databaseIdentity.UserManager.AddToRoleAsync(user.Id, "user");
                 User clientProfile = new User { Id = user.Id, Name = newUser.UserName };
-                databaseIdentity.ClientManager.Create(clientProfile);
+                database.Users.Create(clientProfile);
                 await databaseIdentity.SaveAsync();
                 return new RegistrationDetails(true, "register successful", "");
             }
@@ -104,11 +104,6 @@ namespace BLL.Services
             return CreateUserDTO(appUser);
         }
 
-        public IEnumerable<string> GetRoles()
-        {
-            return databaseIdentity.RoleManager.Roles.Select(x => x.Name);
-        }
-
         private UserDTO CreateUserDTO(ApplicationUser user)
         {
             var products = Mapper.Map<IEnumerable<Product>, List<ProductDTO>>(database.Products.Find(x => x.UserID == user.Id).ToList());
@@ -128,8 +123,6 @@ namespace BLL.Services
         {
             var user = databaseIdentity.UserManager.FindById(id);
             var roleId = user.Roles.Where(x => x.UserId == user.Id).SingleOrDefault().RoleId;
-
-            
             var role = databaseIdentity.RoleManager.FindById(roleId).Name;
 
             return role;

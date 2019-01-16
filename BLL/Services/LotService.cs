@@ -143,7 +143,7 @@ namespace BLL.Services
             database.Lots.Delete(id);
         }
 
-        public async Task EndBiddingWhenTimeExpired( int id)
+        public async Task EndBiddingWhenTimeExpired(int id)
         {
             var lot = GetLot(id);
             if (lot == null)

@@ -129,7 +129,7 @@ namespace WEB.Controllers
         }
 
         [HttpPut]
-        [Route("update/{productId}/{categoryТфьу}")]
+        [Route("update/{productId}/{categoryName}")]
         [Authorize]
         public IHttpActionResult ChangeProductCategory(int productId, string categoryName)
         {

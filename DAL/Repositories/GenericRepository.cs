@@ -10,12 +10,12 @@ namespace DAL.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        internal AuctionContext context;
+        internal AuctionContext database;
         internal DbSet<TEntity> dbSet;
 
         public GenericRepository(AuctionContext context)
         {
-            this.context = context;
+            database = context;
             dbSet = context.Set<TEntity>();
         }
 
@@ -33,13 +33,13 @@ namespace DAL.Repositories
         public void Create(TEntity entity)
         {
             dbSet.Add(entity);
-            context.SaveChanges();
+            database.SaveChanges();
         }
 
         public void Update(TEntity entity)
         {
-            context.Entry(entity).State = EntityState.Modified;
-            context.SaveChanges();
+            database.Entry(entity).State = EntityState.Modified;
+            database.SaveChanges();
         }
 
         public IEnumerable<TEntity> Find(Func<TEntity, Boolean> predicate)
@@ -52,7 +52,7 @@ namespace DAL.Repositories
             TEntity entity = dbSet.Find(id);
             if (entity != null)
                 dbSet.Remove(entity);
-            context.SaveChanges();
+            database.SaveChanges();
         }
     }
 }

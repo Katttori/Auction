@@ -31,11 +31,13 @@ namespace DAL.Repositories
         public void Create(User item)
         {
             database.UsersProfiles.Add(item);
+            database.SaveChanges();
         }
 
         public void Update(User item)
         {
             database.Entry(item).State = EntityState.Modified;
+            database.SaveChanges();
         }
 
         public void Delete(string id)
@@ -43,6 +45,7 @@ namespace DAL.Repositories
             User user = database.UsersProfiles.Find(id);
             if (user != null)
                 database.UsersProfiles.Remove(user);
+            database.SaveChanges();
         }
 
         public IEnumerable<User> Find(Func<User, bool> predicate)

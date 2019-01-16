@@ -84,11 +84,9 @@
     <Compile Include="Entities\User.cs" />
     <Compile Include="Identity\Entities\ApplicationRole.cs" />
     <Compile Include="Identity\Entities\ApplicationUser.cs" />
-    <Compile Include="Identity\Interfaces\IClientManager.cs" />
     <Compile Include="Identity\Interfaces\IUnitOfWorkIdentity.cs" />
     <Compile Include="Identity\Repositories\ApplicationRoleManager.cs" />
     <Compile Include="Identity\Repositories\ApplicationUserManager.cs" />
-    <Compile Include="Identity\Repositories\ClientManager.cs" />
     <Compile Include="Identity\Repositories\IdentityUnitOfWork.cs" />
     <Compile Include="Interfaces\IGenericRepository.cs" />
     <Compile Include="Interfaces\IUnitOfWork.cs" />

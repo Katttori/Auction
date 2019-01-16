@@ -16,13 +16,14 @@ namespace DAL.Identity.Repositories
 
         public static ApplicationUserManager Create(IdentityFactoryOptions<ApplicationUserManager> options)
         {
-            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>(/*DATACONTEXT*/));
+            var manager = new ApplicationUserManager(new UserStore<ApplicationUser>());
             // Configure validation logic for usernames
             manager.UserValidator = new UserValidator<ApplicationUser>(manager)
             {
                 AllowOnlyAlphanumericUserNames = false,
                 RequireUniqueEmail = true
             };
+
             // Configure validation logic for passwords
             manager.PasswordValidator = new PasswordValidator
             {

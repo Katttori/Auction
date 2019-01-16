@@ -20,7 +20,6 @@ namespace BLL.Interfaces
 
         Task<Tuple<ClaimsIdentity, ClaimsIdentity>> FindAsync(string username, string password);
         UserDTO GetUserByName(string name);
-        IEnumerable<string> GetRoles();
         string GetRoleForUser(string id);
         void ChangeRole(string userId, string newRole);
 
